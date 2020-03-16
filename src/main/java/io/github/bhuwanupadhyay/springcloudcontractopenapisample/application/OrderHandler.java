@@ -13,17 +13,17 @@ public interface OrderHandler {
     @PostMapping("orders")
     Mono<OrderResource> createOrder(@RequestBody CreateOrderCommand command);
 
-    @PutMapping("orders/{id}")
-    Mono<ResponseEntity<OrderResource>> updateOrder(@RequestBody UpdateOrderCommand command);
+    @PutMapping("orders/{orderId}")
+    Mono<ResponseEntity<OrderResource>> updateOrder(@PathVariable("orderId") String orderId, @RequestBody UpdateOrderCommand command);
 
     @GetMapping("orders")
     Flux<OrderResource> listOrder(@RequestParam OrderResource filters, Pageable pageable);
 
-    @GetMapping("orders/{id}")
-    Mono<ResponseEntity<OrderResource>> getOrder(@PathVariable("id") String id);
+    @GetMapping("orders/{orderId}")
+    Mono<ResponseEntity<OrderResource>> getOrder(@PathVariable("orderId") String orderId);
 
-    @DeleteMapping("orders/{id}")
-    Mono<ResponseEntity<Void>> deleteOrder(@PathVariable("id") String id);
+    @DeleteMapping("orders/{orderId}")
+    Mono<ResponseEntity<Object>> deleteOrder(@PathVariable("orderId") String orderId);
 
     record ErrorResource(@JsonProperty("errorId")String errorId,
                          @JsonProperty("message")String translations) {
