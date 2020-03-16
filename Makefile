@@ -15,6 +15,9 @@ help:
 build: ## Build the project
 	@src/ci/build.sh
 
+docker: ## Build the docker
+	docker-compose down && docker system prune && docker-compose build --no-cache && docker-compose up
+
 ##@ Releasing
 
 version: ## Get the current build version
