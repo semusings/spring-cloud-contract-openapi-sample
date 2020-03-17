@@ -3,7 +3,7 @@ services:
   app:
     image: bhuwanupadhyay/spring-cloud-contract-openapi-sample
     build:
-      context: .
+      context: orders-api
       dockerfile: Dockerfile
     ports:
       - 8080:8080

@@ -2,20 +2,24 @@ package io.github.bhuwanupadhyay.springcloudcontractopenapisample.application;
 
 import io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain.OrderEntity;
 import io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain.OrderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.awt.print.Pageable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 class WebOrderHandler implements OrderHandler {
 
     private final AtomicInteger orderIdGen = new AtomicInteger(1000);
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+
+    WebOrderHandler(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @Override
     public Mono<OrderResource> createOrder(CreateOrderCommand command) {
@@ -44,8 +48,14 @@ class WebOrderHandler implements OrderHandler {
     }
 
     @Override
-    public Flux<OrderResource> listOrder(OrderResource filters, Pageable pageable) {
-        return null;
+    public Mono<Page<OrderResource>> listOrder(OrderResource filters, Pageable pageable) {
+        OrderEntity entity = new OrderEntity(
+                filters.orderId(),
+                filters.customerId(),
+                filters.itemName(),
+                filters.quantity()
+        );
+        return Mono.justOrEmpty(orderRepository.list(entity, pageable).map(this::toResource));
     }
 
     @Override

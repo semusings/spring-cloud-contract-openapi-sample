@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.bhuwanupadhyay</groupId>
     <artifactId>spring-cloud-contract-openapi-sample</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>orders-api</module>
+    </modules>
     <name>spring-cloud-contract-openapi-sample</name>
     <description>Demo project for Spring Boot</description>
 
@@ -20,7 +24,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>14</java.version>
+        <java.version>8</java.version>
         <resource.delimiter>@</resource.delimiter>
         <springdoc-openapi-webflux-ui.version>1.2.33</springdoc-openapi-webflux-ui.version>
     </properties>
