@@ -1,4 +1,4 @@
-package io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain;
+package io.github.bhuwanupadhyay.ordersapijava8.domain;
 
 public class DomainViolationException extends RuntimeException {
 

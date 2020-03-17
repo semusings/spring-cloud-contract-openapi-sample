@@ -1,8 +1,8 @@
-package io.github.bhuwanupadhyay.springcloudcontractopenapisample.application;
+package io.github.bhuwanupadhyay.ordersapijava8.application;
 
-import io.github.bhuwanupadhyay.springcloudcontractopenapisample.application.OrderHandler.ErrorResource;
-import io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain.DomainViolationException;
-import io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain.EntityNotFoundException;
+import io.github.bhuwanupadhyay.ordersapijava8.application.OrderHandler.ErrorResource;
+import io.github.bhuwanupadhyay.ordersapijava8.domain.DomainViolationException;
+import io.github.bhuwanupadhyay.ordersapijava8.domain.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

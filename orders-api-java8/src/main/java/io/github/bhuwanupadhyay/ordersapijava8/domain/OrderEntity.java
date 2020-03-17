@@ -1,4 +1,4 @@
-package io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain;
+package io.github.bhuwanupadhyay.ordersapijava8.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;

@@ -1,6 +1,6 @@
-package io.github.bhuwanupadhyay.springcloudcontractopenapisample.infrastructure;
+package io.github.bhuwanupadhyay.ordersapijava8.infrastructure;
 
-import io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain.OrderEntity;
+import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderEntity;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 interface SpringDataJdbcOrderRepository extends PagingAndSortingRepository<OrderEntity, String> {

@@ -1,8 +1,8 @@
-package io.github.bhuwanupadhyay.springcloudcontractopenapisample.infrastructure;
+package io.github.bhuwanupadhyay.ordersapijava8.infrastructure;
 
-import io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain.EntityNotFoundException;
-import io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain.OrderEntity;
-import io.github.bhuwanupadhyay.springcloudcontractopenapisample.domain.OrderRepository;
+import io.github.bhuwanupadhyay.ordersapijava8.domain.EntityNotFoundException;
+import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderEntity;
+import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;

@@ -57,7 +57,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>orders-api-java8</finalName>
+        <finalName>${project.artifactId}</finalName>
 
         <plugins>
             <plugin>
@@ -67,7 +67,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <packageWithBaseClasses>
-                        io.github.bhuwanupadhyay.springcloudcontractopenapisample.application
+                        io.github.bhuwanupadhyay.ordersapijava8.application
                     </packageWithBaseClasses>
                 </configuration>
                 <dependencies>

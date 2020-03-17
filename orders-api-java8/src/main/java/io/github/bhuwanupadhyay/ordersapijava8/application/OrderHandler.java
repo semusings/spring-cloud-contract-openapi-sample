@@ -1,4 +1,4 @@
-package io.github.bhuwanupadhyay.springcloudcontractopenapisample.application;
+package io.github.bhuwanupadhyay.ordersapijava8.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
