@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: shipments-api-java8
+
+# -------------------------------------------------------------------
+# Sellics configurations
+# -------------------------------------------------------------------
+sellics:
+  amazon:
+    alias: ${SELLICS_AMAZON_ALIAS:aps}
+    mid: ${SELLICS_AMAZON_MID:ATVPDKIKX0DER}
+    completion-base-url: ${SELLICS_AMAZON_BASE_URL:https://completion.amazon.com}
+    suggestion-api-path: ${SELLICS_AMAZON_SUGGESTION_PATH:/api/2017/suggestions}
+
+# -------------------------------------------------------------------
+# Logging settings
+# -------------------------------------------------------------------
+logging:
+  level:
+    com:
+      sellics: DEBUG
