@@ -1,0 +1,265 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  "/orders/{orderId}":
+    get:
+      tags:
+        - web-order-handler
+      operationId: getOrder
+      x-contracts:
+        - contractId: 1
+          name: should return order by id
+          priority: 1
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/OrderResource"
+          x-contracts:
+            - contractId: 1
+              body:
+                orderId: "orderId1"
+              headers:
+                Content-Type: application/json;charset=UTF-8
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+    put:
+      tags:
+        - web-order-handler
+      operationId: updateOrder
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UpdateOrderCommand"
+      responses:
+        '200':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/OrderResource"
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+    delete:
+      tags:
+        - web-order-handler
+      operationId: deleteOrder
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: object
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/orders":
+    get:
+      tags:
+        - web-order-handler
+      operationId: listOrder
+      parameters:
+        - name: filters
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/OrderResource"
+        - name: pageable
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/Pageable"
+      responses:
+        '200':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PageOrderResource"
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+    post:
+      tags:
+        - web-order-handler
+      operationId: createOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CreateOrderCommand"
+      responses:
+        '200':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/OrderResource"
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+components:
+  schemas:
+    OrderResource:
+      type: object
+      properties:
+        orderId:
+          type: string
+        customerId:
+          type: string
+        itemName:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    CreateOrderCommand:
+      type: object
+      properties:
+        customerId:
+          type: string
+        itemName:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    UpdateOrderCommand:
+      type: object
+      properties:
+        itemName:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    Pageable:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        sort:
+          "$ref": "#/components/schemas/Sort"
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+        offset:
+          type: integer
+          format: int64
+    Sort:
+      type: object
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+        empty:
+          type: boolean
+    PageOrderResource:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        pageable:
+          "$ref": "#/components/schemas/Pageable"
+        sort:
+          "$ref": "#/components/schemas/Sort"
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            "$ref": "#/components/schemas/OrderResource"
+        number:
+          type: integer
+          format: int32
+        empty:
+          type: boolean

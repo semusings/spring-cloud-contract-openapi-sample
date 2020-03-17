@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>spring-cloud-contract-openapi-sample</artifactId>
+        <groupId>io.github.bhuwanupadhyay</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>orders-api-java8</artifactId>
+
+    <properties>
+        <java.version>8</java.version>
+        <spring-cloud-contract-maven-plugin.version>2.2.2.RELEASE</spring-cloud-contract-maven-plugin.version>
+        <maven-compiler-plugin.compilerArgs></maven-compiler-plugin.compilerArgs>
+        <spring-cloud-contract.version>2.1.1.RELEASE</spring-cloud-contract.version>
+        <scc-oa3-version>2.1.1.1</scc-oa3-version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-verifier</artifactId>
+            <version>${spring-cloud-contract.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>guru.springframework</groupId>
+            <artifactId>spring-cloud-contract-oa3</artifactId>
+            <version>${scc-oa3-version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.SR3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <finalName>orders-api-java8</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>${spring-cloud-contract.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <packageWithBaseClasses>
+                        io.github.bhuwanupadhyay.springcloudcontractopenapisample.application
+                    </packageWithBaseClasses>
+                </configuration>
+                <dependencies>
+                    <!--needed to include oa3 converter-->
+                    <dependency>
+                        <groupId>guru.springframework</groupId>
+                        <artifactId>spring-cloud-contract-oa3</artifactId>
+                        <version>${scc-oa3-version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
