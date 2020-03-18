@@ -21,7 +21,8 @@ public class ContractVerifierBase {
     }
 
     private OrderRepository stubbedOrderRepository() {
-        OrderEntity orderEntity = new OrderEntity("orderId1", "customerId1", "itemId1", 5);
+        OrderEntity orderEntity = new OrderEntity("0a818933-087d-47f2-ad83-2f986ed087eb",
+                "customerId1", "itemName1", 5);
 
         return new OrderRepository() {
 

@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.0
 info:
   title: OpenAPI definition
   version: v0
@@ -6,8 +6,18 @@ servers:
   - url: http://localhost:8080
     description: Generated server url
 paths:
-  "/orders/{orderId}":
+  /orders/{orderId}:
     get:
+      summary: Get Order By Id
+      x-contracts:
+        - contractId: 1
+          name: should return order if exists
+          contractPath: /orders/0a818933-087d-47f2-ad83-2f986ed087eb
+          priority: 1
+        - contractId: 2
+          name: should not return order if does not exists
+          contractPath: /orders/00000000-0000-0000-0000-000000000000
+          priority: 1
       tags:
         - web-order-handler
       operationId: getOrder
@@ -21,157 +31,20 @@ paths:
         '200':
           description: default response
           content:
-            "*/*":
+            application/json:
               schema:
                 "$ref": "#/components/schemas/OrderResource"
           x-contracts:
             - contractId: 1
               body:
-                orderId: "orderId1"
-        '400':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
-        '404':
-          description: default response
+                orderId: "0a818933-087d-47f2-ad83-2f986ed087eb"
+                customerId: "customerId1"
+                itemName: "itemName1"
+                quantity: 5
+        404:
+          description: Order Id Not Found
           x-contracts:
             - contractId: 2
-      summary: Get order by id
-      x-contracts:
-        - contractId: 1
-          name: Test Get Order By Id Response
-          contractPath: /orders/orderId1
-        - contractId: 2
-          name: Test Order Not Found
-          contractPath: /orders/orderId2
-    put:
-      tags:
-        - web-order-handler
-      operationId: updateOrder
-      parameters:
-        - name: orderId
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": "#/components/schemas/UpdateOrderCommand"
-      responses:
-        '200':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/OrderResource"
-        '400':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
-        '404':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
-    delete:
-      tags:
-        - web-order-handler
-      operationId: deleteOrder
-      parameters:
-        - name: orderId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: object
-        '400':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
-        '404':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
-  "/orders":
-    get:
-      tags:
-        - web-order-handler
-      operationId: listOrder
-      parameters:
-        - name: filters
-          in: query
-          required: true
-          schema:
-            "$ref": "#/components/schemas/OrderResource"
-        - name: pageable
-          in: query
-          required: true
-          schema:
-            "$ref": "#/components/schemas/Pageable"
-      responses:
-        '200':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/PageOrderResource"
-        '400':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
-        '404':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
-    post:
-      tags:
-        - web-order-handler
-      operationId: createOrder
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": "#/components/schemas/CreateOrderCommand"
-      responses:
-        '200':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/OrderResource"
-        '400':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
-        '404':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
 components:
   schemas:
     OrderResource:
