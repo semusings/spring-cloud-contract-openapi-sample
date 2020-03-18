@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,8 +21,8 @@ public class WebOrderHandler implements OrderHandler {
     }
 
     @Override
-    public Mono<OrderResource> createOrder(CreateOrderCommand command) {
-        return Mono.justOrEmpty(
+    public ResponseEntity<OrderResource> createOrder(CreateOrderCommand command) {
+        return ResponseEntity.ok().body(
                 toResource(
                         orderRepository.save(
                                 new OrderEntity(
@@ -38,37 +37,35 @@ public class WebOrderHandler implements OrderHandler {
     }
 
     @Override
-    public Mono<ResponseEntity<OrderResource>> updateOrder(String orderId,
-                                                           UpdateOrderCommand command) {
-        ResponseEntity<OrderResource> result = orderRepository.find(orderId)
+    public ResponseEntity<OrderResource> updateOrder(String orderId,
+                                                     UpdateOrderCommand command) {
+        return orderRepository.find(orderId)
                 .map(entity -> orderRepository.update(orderId, toEntity(command, entity)))
                 .map(entity -> ResponseEntity.status(HttpStatus.OK).body(toResource(entity)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
-        return Mono.justOrEmpty(result);
     }
 
     @Override
-    public Mono<Page<OrderResource>> listOrder(OrderResource filters, Pageable pageable) {
+    public ResponseEntity<Page<OrderResource>> listOrder(OrderResource filters, Pageable pageable) {
         OrderEntity entity = new OrderEntity(
                 filters.getOrderId(),
                 filters.getCustomerId(),
                 filters.getItemName(),
                 filters.getQuantity()
         );
-        return Mono.justOrEmpty(orderRepository.list(entity, pageable).map(this::toResource));
+        return ResponseEntity.ok().body(orderRepository.list(entity, pageable).map(this::toResource));
     }
 
     @Override
-    public Mono<ResponseEntity<OrderResource>> getOrder(String orderId) {
-        ResponseEntity<OrderResource> result = orderRepository.find(orderId)
+    public ResponseEntity<OrderResource> getOrder(String orderId) {
+        return orderRepository.find(orderId)
                 .map(entity -> ResponseEntity.status(HttpStatus.OK).body(toResource(entity)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
-        return Mono.justOrEmpty(result);
     }
 
     @Override
-    public Mono<ResponseEntity<Object>> deleteOrder(String orderId) {
-        return Mono.justOrEmpty(
+    public ResponseEntity<Object> deleteOrder(String orderId) {
+        return ResponseEntity.ok().body(
                 orderRepository.find(orderId)
                         .map(entity -> {
                             orderRepository.delete(orderId);

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class ContractVerifierBase {
@@ -26,7 +27,7 @@ public class ContractVerifierBase {
 
             @Override
             public Optional<OrderEntity> find(String orderId) {
-                return Optional.of(orderEntity);
+                return Optional.ofNullable(Objects.equals(orderId, orderEntity.getOrderId()) ? orderEntity : null);
             }
 
             @Override

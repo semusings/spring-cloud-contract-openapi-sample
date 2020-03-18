@@ -11,10 +11,6 @@ paths:
       tags:
         - web-order-handler
       operationId: getOrder
-      x-contracts:
-        - contractId: 1
-          name: should return order by id
-          priority: 1
       parameters:
         - name: orderId
           in: path
@@ -32,8 +28,6 @@ paths:
             - contractId: 1
               body:
                 orderId: "orderId1"
-              headers:
-                Content-Type: application/json;charset=UTF-8
         '400':
           description: default response
           content:
@@ -42,10 +36,16 @@ paths:
                 type: string
         '404':
           description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
+          x-contracts:
+            - contractId: 2
+      summary: Get order by id
+      x-contracts:
+        - contractId: 1
+          name: Test Get Order By Id Response
+          contractPath: /orders/orderId1
+        - contractId: 2
+          name: Test Order Not Found
+          contractPath: /orders/orderId2
     put:
       tags:
         - web-order-handler
