@@ -29,6 +29,8 @@
         <resource.delimiter>@</resource.delimiter>
         <springdoc-openapi-ui.version>1.2.33</springdoc-openapi-ui.version>
         <maven-compiler-plugin.compilerArgs>--enable-preview</maven-compiler-plugin.compilerArgs>
+        <spring-cloud-contract.version>2.1.1.RELEASE</spring-cloud-contract.version>
+        <scc-oa3-version>2.1.1.1</scc-oa3-version>
     </properties>
 
     <dependencies>
@@ -63,10 +65,39 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>guru.springframework</groupId>
+            <artifactId>spring-cloud-contract-oa3</artifactId>
+            <version>${scc-oa3-version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.SR3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
     <build>
-        <finalName>spring-cloud-contract-openapi-sample</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
