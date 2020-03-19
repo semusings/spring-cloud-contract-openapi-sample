@@ -75,12 +75,12 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>guru.springframework</groupId>
-            <artifactId>spring-cloud-contract-oa3</artifactId>
-            <version>${scc-oa3-version}</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>guru.springframework</groupId>-->
+<!--            <artifactId>spring-cloud-contract-oa3</artifactId>-->
+<!--            <version>${scc-oa3-version}</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
     </dependencies>
 
     <dependencyManagement>

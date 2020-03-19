@@ -2,6 +2,10 @@ package io.github.bhuwanupadhyay.ordersapijava8.application;
 
 import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderEntity;
 import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderRepository;
+import io.github.bhuwanupadhyay.ordersapijava8.openapi.CreateOrderCommand;
+import io.github.bhuwanupadhyay.ordersapijava8.openapi.OrderResource;
+import io.github.bhuwanupadhyay.ordersapijava8.openapi.OrdersApi;
+import io.github.bhuwanupadhyay.ordersapijava8.openapi.UpdateOrderCommand;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -11,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
-public class WebOrderHandler implements OrderHandler {
+public class WebOrderHandler implements OrdersApi {
 
     private final AtomicInteger orderIdGen = new AtomicInteger(1000);
     private final OrderRepository orderRepository;
@@ -46,7 +50,7 @@ public class WebOrderHandler implements OrderHandler {
     }
 
     @Override
-    public ResponseEntity<Page<OrderResource>> listOrder(OrderResource filters, Pageable pageable) {
+    public ResponseEntity<Page> listOrder(OrderResource filters, Pageable pageable) {
         OrderEntity entity = new OrderEntity(
                 filters.getOrderId(),
                 filters.getCustomerId(),
@@ -64,24 +68,21 @@ public class WebOrderHandler implements OrderHandler {
     }
 
     @Override
-    public ResponseEntity<Object> deleteOrder(String orderId) {
-        return ResponseEntity.ok().body(
-                orderRepository.find(orderId)
-                        .map(entity -> {
-                            orderRepository.delete(orderId);
-                            return ResponseEntity.status(HttpStatus.OK).build();
-                        })
-                        .orElseGet(() -> ResponseEntity.notFound().build())
-        );
+    public ResponseEntity<Void> deleteOrder(String orderId) {
+        return orderRepository.find(orderId)
+                .map(entity -> {
+                    orderRepository.delete(orderId);
+                    return ResponseEntity.ok().<Void>build();
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     private OrderResource toResource(OrderEntity entity) {
-        return new OrderResource(
-                entity.getOrderId(),
-                entity.getCustomerId(),
-                entity.getItemName(),
-                entity.getQuantity()
-        );
+        return new OrderResource()
+                .orderId(entity.getOrderId())
+                .customerId(entity.getCustomerId())
+                .itemName(entity.getItemName())
+                .quantity(entity.getQuantity());
     }
 
     private OrderEntity toEntity(UpdateOrderCommand command, OrderEntity entity) {

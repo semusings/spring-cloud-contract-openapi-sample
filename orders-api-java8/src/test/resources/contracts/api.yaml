@@ -8,8 +8,9 @@ servers:
 paths:
   "/orders/{orderId}":
     get:
+      summary: Get order by id.
       tags:
-        - web-order-handler
+        - orders
       operationId: getOrder
       parameters:
         - name: orderId
@@ -19,26 +20,16 @@ paths:
             type: string
       responses:
         '200':
-          description: default response
+          description: Order Resource
           content:
-            "*/*":
+            "application/json":
               schema:
                 "$ref": "#/components/schemas/OrderResource"
-        '400':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
         '404':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
+          description: Not Found
     put:
       tags:
-        - web-order-handler
+        - orders
       operationId: updateOrder
       parameters:
         - name: orderId
@@ -53,26 +44,24 @@ paths:
               "$ref": "#/components/schemas/UpdateOrderCommand"
       responses:
         '200':
-          description: default response
+          description: Order Resource
           content:
-            "*/*":
+            "application/json":
               schema:
                 "$ref": "#/components/schemas/OrderResource"
         '400':
-          description: default response
+          description: Errors
           content:
-            "*/*":
+            "application/json":
               schema:
-                type: string
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ErrorResource"
         '404':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
+          description: Not Found
     delete:
       tags:
-        - web-order-handler
+        - orders
       operationId: deleteOrder
       parameters:
         - name: orderId
@@ -82,27 +71,14 @@ paths:
             type: string
       responses:
         '200':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: object
-        '400':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
+          description: Order Deleted
         '404':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
+          description: Not Found
+
   "/orders":
     get:
       tags:
-        - web-order-handler
+        - orders
       operationId: listOrder
       parameters:
         - name: filters
@@ -117,26 +93,14 @@ paths:
             "$ref": "#/components/schemas/Pageable"
       responses:
         '200':
-          description: default response
+          description: List of Orders
           content:
-            "*/*":
+            "application/json":
               schema:
-                "$ref": "#/components/schemas/PageOrderResource"
-        '400':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
-        '404':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
+                "$ref": "#/components/schemas/Page"
     post:
       tags:
-        - web-order-handler
+        - orders
       operationId: createOrder
       requestBody:
         content:
@@ -145,23 +109,19 @@ paths:
               "$ref": "#/components/schemas/CreateOrderCommand"
       responses:
         '200':
-          description: default response
+          description: Order Resource
           content:
-            "*/*":
+            "application/json":
               schema:
                 "$ref": "#/components/schemas/OrderResource"
         '400':
-          description: default response
+          description: Errors
           content:
-            "*/*":
+            "application/json":
               schema:
-                type: string
-        '404':
-          description: default response
-          content:
-            "*/*":
-              schema:
-                type: string
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ErrorResource"
 components:
   schemas:
     OrderResource:
@@ -205,13 +165,13 @@ components:
           format: int32
         sort:
           "$ref": "#/components/schemas/Sort"
-        unpaged:
-          type: boolean
-        paged:
-          type: boolean
-        offset:
-          type: integer
-          format: int64
+    ErrorResource:
+      type: object
+      properties:
+        errorId:
+          type: string
+        message:
+          type: string
     Sort:
       type: object
       properties:
@@ -221,7 +181,7 @@ components:
           type: boolean
         empty:
           type: boolean
-    PageOrderResource:
+    Page:
       type: object
       properties:
         totalPages:
@@ -230,17 +190,8 @@ components:
         totalElements:
           type: integer
           format: int64
-        first:
-          type: boolean
         sort:
           "$ref": "#/components/schemas/Sort"
-        numberOfElements:
-          type: integer
-          format: int32
-        last:
-          type: boolean
-        pageable:
-          "$ref": "#/components/schemas/Pageable"
         size:
           type: integer
           format: int32
@@ -251,5 +202,3 @@ components:
         number:
           type: integer
           format: int32
-        empty:
-          type: boolean

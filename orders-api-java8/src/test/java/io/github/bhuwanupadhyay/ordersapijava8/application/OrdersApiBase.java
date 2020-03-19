@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ContractVerifierBase {
+public class OrdersApiBase {
 
     @Before
     public void setup() {
