@@ -1,23 +1,13 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: Orders API
+  version: 1.0.0
 servers:
   - url: http://localhost:8080
-    description: Generated server url
+    description: Orders API
 paths:
-  /orders/{orderId}:
+  "/orders/{orderId}":
     get:
-      summary: Get Order By Id
-      x-contracts:
-        - contractId: 1
-          name: should return order if exists
-          contractPath: /orders/0a818933-087d-47f2-ad83-2f986ed087eb
-          priority: 1
-        - contractId: 2
-          name: should not return order if does not exists
-          contractPath: /orders/00000000-0000-0000-0000-000000000000
-          priority: 1
       tags:
         - web-order-handler
       operationId: getOrder
@@ -31,20 +21,147 @@ paths:
         '200':
           description: default response
           content:
-            application/json:
+            "*/*":
               schema:
                 "$ref": "#/components/schemas/OrderResource"
-          x-contracts:
-            - contractId: 1
-              body:
-                orderId: "0a818933-087d-47f2-ad83-2f986ed087eb"
-                customerId: "customerId1"
-                itemName: "itemName1"
-                quantity: 5
-        404:
-          description: Order Id Not Found
-          x-contracts:
-            - contractId: 2
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+    put:
+      tags:
+        - web-order-handler
+      operationId: updateOrder
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UpdateOrderCommand"
+      responses:
+        '200':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/OrderResource"
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+    delete:
+      tags:
+        - web-order-handler
+      operationId: deleteOrder
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: object
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/orders":
+    get:
+      tags:
+        - web-order-handler
+      operationId: listOrder
+      parameters:
+        - name: filters
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/OrderResource"
+        - name: pageable
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/Pageable"
+      responses:
+        '200':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PageOrderResource"
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+    post:
+      tags:
+        - web-order-handler
+      operationId: createOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CreateOrderCommand"
+      responses:
+        '200':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/OrderResource"
+        '400':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: default response
+          content:
+            "*/*":
+              schema:
+                type: string
 components:
   schemas:
     OrderResource:
@@ -80,17 +197,17 @@ components:
     Pageable:
       type: object
       properties:
-        pageNumber:
+        pageSize:
           type: integer
           format: int32
-        pageSize:
+        pageNumber:
           type: integer
           format: int32
         sort:
           "$ref": "#/components/schemas/Sort"
-        paged:
-          type: boolean
         unpaged:
+          type: boolean
+        paged:
           type: boolean
         offset:
           type: integer
@@ -113,17 +230,17 @@ components:
         totalElements:
           type: integer
           format: int64
-        pageable:
-          "$ref": "#/components/schemas/Pageable"
+        first:
+          type: boolean
         sort:
           "$ref": "#/components/schemas/Sort"
         numberOfElements:
           type: integer
           format: int32
-        first:
-          type: boolean
         last:
           type: boolean
+        pageable:
+          "$ref": "#/components/schemas/Pageable"
         size:
           type: integer
           format: int32
