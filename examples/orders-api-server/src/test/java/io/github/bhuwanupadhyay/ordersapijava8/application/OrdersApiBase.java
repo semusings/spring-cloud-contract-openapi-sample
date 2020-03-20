@@ -5,7 +5,7 @@ import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderEntity;
 import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderRepository;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.assertj.core.util.Lists;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +13,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class OrdersApiBase {
+class OrdersApiBase {
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         RestAssuredMockMvc.standaloneSetup(new WebOrderHandler(stubbedOrderRepository()));
     }
 
@@ -53,7 +53,7 @@ public class OrdersApiBase {
         };
     }
 
-    public void assertThatRejectionReasonIsNull(Object rejectionReason) {
+    void assertThatRejectionReasonIsNull(Object rejectionReason) {
         assert rejectionReason == null;
     }
 

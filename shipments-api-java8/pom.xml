@@ -12,8 +12,6 @@
     <artifactId>shipments-api-java8</artifactId>
 
     <properties>
-        <java.version>8</java.version>
-        <maven-compiler-plugin.compilerArgs></maven-compiler-plugin.compilerArgs>
     </properties>
 
     <dependencies>
@@ -23,6 +21,21 @@
             <version>${spring-cloud-contract.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>openapi3-to-spring-cloud-contract-extension</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

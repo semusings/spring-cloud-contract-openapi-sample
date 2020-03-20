@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>examples</artifactId>
+        <groupId>io.github.bhuwanupadhyay</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>orders-api-server</artifactId>
+
+
+    <properties>
+        <default.package>io.github.bhuwanupadhyay.ordersapijava8.openapi</default.package>
+        <openapi-generator-maven-plugin.version>4.2.3</openapi-generator-maven-plugin.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- Open API Generator Dependencies -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+        <!-- //end -->
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-verifier</artifactId>
+            <version>${spring-cloud-contract.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>openapi3-to-spring-cloud-contract-extension</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/test/resources/contracts/api.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <configOptions>
+                                <dateLibrary>java8</dateLibrary>
+                                <interfaceOnly>true</interfaceOnly>
+                                <java8>true</java8>
+                                <performBeanValidation>false</performBeanValidation>
+                                <swaggerDocketConfig>false</swaggerDocketConfig>
+                                <title>Orders API</title>
+                                <useOptional>true</useOptional>
+                                <useTags>true</useTags>
+                                <booleanGetterPrefix>is</booleanGetterPrefix>
+                            </configOptions>
+                            <library>spring-boot</library>
+                            <importMappings>
+                                Page=org.springframework.data.domain.Page,
+                                Pageable=org.springframework.data.domain.Pageable,
+                                Sort=org.springframework.data.domain.Sort
+                            </importMappings>
+                            <generateApiDocumentation>false</generateApiDocumentation>
+                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <addCompileSourceRoot>true</addCompileSourceRoot>
+                            <enablePostProcessFile>true</enablePostProcessFile>
+                            <apiPackage>${default.package}</apiPackage>
+                            <modelPackage>${default.package}</modelPackage>
+                            <invokerPackage>${default.package}</invokerPackage>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>${spring-cloud-contract.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <packageWithBaseClasses>
+                        io.github.bhuwanupadhyay.ordersapijava8.application
+                    </packageWithBaseClasses>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

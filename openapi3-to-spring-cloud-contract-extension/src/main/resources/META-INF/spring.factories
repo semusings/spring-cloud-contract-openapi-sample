@@ -1,0 +1,2 @@
+org.springframework.cloud.contract.spec.ContractConverter=\
+io.github.bhuwanupadhyay.openapitocontract.OpenApiVerifierContractConverter
