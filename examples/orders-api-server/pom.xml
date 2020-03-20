@@ -93,15 +93,25 @@
                 </executions>
             </plugin>
             <plugin>
+                <!--
+                 https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract-maven-plugin/complex.html
+                 -->
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-contract-maven-plugin</artifactId>
                 <version>${spring-cloud-contract.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <packageWithBaseClasses>
-                        io.github.bhuwanupadhyay.ordersapijava8.application
-                    </packageWithBaseClasses>
+                    <testMode>MOCKMVC</testMode>
+                    <testFramework>JUNIT5</testFramework>
+                    <baseClassForTests>io.github.bhuwanupadhyay.ordersapijava8.application.OrdersApiBase</baseClassForTests>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>openapi3-to-spring-cloud-contract-extension</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

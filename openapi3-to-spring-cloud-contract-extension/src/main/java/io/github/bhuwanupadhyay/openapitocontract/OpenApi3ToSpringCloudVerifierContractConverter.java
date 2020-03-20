@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
-public class OpenApiVerifierContractConverter implements ContractConverter<Collection<PathItem>> {
+public class OpenApi3ToSpringCloudVerifierContractConverter implements ContractConverter<Collection<PathItem>> {
 
     @Override
     public boolean isAccepted(File file) {

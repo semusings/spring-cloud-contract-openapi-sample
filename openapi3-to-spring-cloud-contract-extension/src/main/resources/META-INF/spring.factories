@@ -1,2 +1,2 @@
 org.springframework.cloud.contract.spec.ContractConverter=\
-io.github.bhuwanupadhyay.openapitocontract.OpenApiVerifierContractConverter
+io.github.bhuwanupadhyay.openapitocontract.OpenApi3ToSpringCloudVerifierContractConverter
