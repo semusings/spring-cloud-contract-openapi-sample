@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-cloud-contract-openapi-sample</artifactId>
@@ -38,12 +38,7 @@
             <version>${spring-cloud-contract.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>openapi3-to-spring-cloud-contract-extension</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
+
     </dependencies>
 
     <build>
@@ -62,7 +57,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/test/resources/contracts/api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/test/resources/api.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <configOptions>
                                 <dateLibrary>java8</dateLibrary>
@@ -99,19 +94,12 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-contract-maven-plugin</artifactId>
                 <version>${spring-cloud-contract.version}</version>
-                <extensions>true</extensions>
                 <configuration>
                     <testMode>MOCKMVC</testMode>
                     <testFramework>JUNIT5</testFramework>
-                    <baseClassForTests>io.github.bhuwanupadhyay.ordersapijava8.application.OrdersApiBase</baseClassForTests>
+                    <baseClassForTests>io.github.bhuwanupadhyay.ordersapijava8.application.OrdersApiBase
+                    </baseClassForTests>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>${project.groupId}</groupId>
-                        <artifactId>openapi3-to-spring-cloud-contract-extension</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
