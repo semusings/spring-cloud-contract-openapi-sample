@@ -32,6 +32,7 @@
         </dependency>
         <!-- //end -->
 
+        <!-- Spring Cloud Contract Verifier Dependencies -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-contract-verifier</artifactId>
@@ -42,6 +43,7 @@
             <artifactId>hibernate-validator</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- //end -->
 
     </dependencies>
 
