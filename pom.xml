@@ -9,12 +9,9 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
-        <module>openapi3-to-spring-cloud-contract-extension</module>
-        <module>examples</module>
+        <module>orders-api-server</module>
+        <module>shipments-api-consumer</module>
     </modules>
-
-    <name>spring-cloud-contract-openapi-sample</name>
-    <description>Demo project for Spring Boot</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
