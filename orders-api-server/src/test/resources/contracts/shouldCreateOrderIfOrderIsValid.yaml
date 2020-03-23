@@ -1,0 +1,33 @@
+description: >
+  Represents a successful scenario of create an order
+name: shouldCreateOrderIfOrderIsValid
+request:
+  url: /orders
+  method: POST
+  headers:
+    Content-Type: application/json
+  bodyFromFile: valid-create-order-command.json
+  matchers:
+    body:
+      - path: "$.quantity"
+        type: by_regex
+        value: "[1-9][0-9]+"
+      - path: "$.itemName"
+        type: by_regex
+        value: ".+"
+      - path: "$.customerId"
+        type: by_regex
+        value: "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}"
+response:
+  status: 200
+  headers:
+    Content-Type: application/json
+  body:
+    itemName: Pizza
+    customerId: "6a2f41a3-c54c-fce8-32d2-0324e1c32e22"
+    quantity: 10
+  matchers:
+    body:
+      - path: "$.orderId"
+        type: by_regex
+        value: "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}"

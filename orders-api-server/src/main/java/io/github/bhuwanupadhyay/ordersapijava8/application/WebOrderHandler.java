@@ -12,12 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 public class WebOrderHandler implements OrdersApi {
 
-    private final AtomicInteger orderIdGen = new AtomicInteger(1000);
     private final OrderRepository orderRepository;
 
     WebOrderHandler(OrderRepository orderRepository) {
@@ -30,7 +30,7 @@ public class WebOrderHandler implements OrdersApi {
                 toResource(
                         orderRepository.save(
                                 new OrderEntity(
-                                        String.valueOf(orderIdGen.incrementAndGet()),
+                                        UUID.randomUUID().toString(),
                                         command.getCustomerId(),
                                         command.getItemName(),
                                         command.getQuantity()
