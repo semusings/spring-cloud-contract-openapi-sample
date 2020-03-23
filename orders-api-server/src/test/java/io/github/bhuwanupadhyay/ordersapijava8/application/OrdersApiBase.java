@@ -27,7 +27,7 @@ class OrdersApiBase {
         List<OrderEntity> entities = Lists.list(
                 new OrderEntity(
                         "0a818933-087d-47f2-ad83-2f986ed087eb",
-                        "Alpha",
+                        "91bb1cd1-8849-41b3-8c63-dd8f9f6ee7ab",
                         "Hot Burger",
                         5
                 )
