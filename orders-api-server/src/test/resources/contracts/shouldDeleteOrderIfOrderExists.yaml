@@ -1,29 +1,8 @@
 description: >
-  Represents a successful scenario of create an order
-name: shouldUpdateOrderIfOrderIsValid
+  Represents a successful scenario of delete an order
+name: shouldDeleteOrderIfOrderExists
 request:
   urlPath: /orders/0a818933-087d-47f2-ad83-2f986ed087eb
-  method: PUT
-  headers:
-    Content-Type: application/json
-  bodyFromFile: valid-update-order-command.json
-  matchers:
-    body:
-      - path: "$.quantity"
-        type: by_regex
-        value: "[1-9][0-9]+"
-      - path: "$.itemName"
-        type: by_regex
-        value: ".+"
-      - path: "$.customerId"
-        type: by_regex
-        value: "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}"
+  method: DELETE
 response:
   status: 200
-  headers:
-    Content-Type: application/json
-  body:
-    itemName: Hot Dog
-    customerId: "91bb1cd1-8849-41b3-8c63-dd8f9f6ee7ab"
-    quantity: 15
-    orderId: "0a818933-087d-47f2-ad83-2f986ed087eb"

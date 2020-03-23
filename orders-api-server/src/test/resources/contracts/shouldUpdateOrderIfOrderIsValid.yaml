@@ -1,5 +1,5 @@
 description: >
-  Represents a successful scenario of create an order
+  Represents a successful scenario of update an order
 name: shouldUpdateOrderIfOrderIsValid
 request:
   urlPath: /orders/0a818933-087d-47f2-ad83-2f986ed087eb
