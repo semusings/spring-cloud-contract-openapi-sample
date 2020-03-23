@@ -1,0 +1,10 @@
+description: >
+  Represents a unsuccessful scenario of get an order by id
+name: shouldReturnNotFoundIfOrderDoesNotExists
+request:
+  urlPath: /orders/00000000-0000-0000-0000-000000000000
+  method: GET
+  headers:
+    Content-Type: application/json
+response:
+  status: 404
