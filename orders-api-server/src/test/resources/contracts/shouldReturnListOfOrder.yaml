@@ -7,21 +7,15 @@ request:
   headers:
     Content-Type: application/json
   queryParameters:
-    # Pageable Query Parameters
     pageNumber: 1
     pageSize: 10
-    # <other params>
-#    sort: null
-# Filter Query Parameters
-#    orderId: null
-#    itemName: null
-#    quantity: null
+    sort: "orderId,ASC"
 response:
   status: 200
   headers:
     Content-Type: application/json
-  body:
-    "$.content[0].itemName": Hot Burger
-    "$.content[0].customerId": "91bb1cd1-8849-41b3-8c63-dd8f9f6ee7ab"
-    "$.content[0].quantity": 5
-    "$.content[0].orderId": "0a818933-087d-47f2-ad83-2f986ed087eb"
+  matchers:
+    body:
+      - path: $.pageMetadata
+        type: by_regex
+        value: 0

@@ -2,18 +2,22 @@ package io.github.bhuwanupadhyay.ordersapijava8.application;
 
 import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderEntity;
 import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderRepository;
-import io.github.bhuwanupadhyay.ordersapijava8.openapi.CreateOrderCommand;
-import io.github.bhuwanupadhyay.ordersapijava8.openapi.OrderResource;
-import io.github.bhuwanupadhyay.ordersapijava8.openapi.OrdersApi;
-import io.github.bhuwanupadhyay.ordersapijava8.openapi.UpdateOrderCommand;
+import io.github.bhuwanupadhyay.ordersapijava8.openapi.*;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.springframework.data.domain.PageRequest.*;
 
 @RestController
 public class WebOrderHandler implements OrdersApi {
@@ -50,14 +54,16 @@ public class WebOrderHandler implements OrdersApi {
     }
 
     @Override
-    public ResponseEntity<Page> listOrder(OrderResource filters, Pageable pageable) {
+    public ResponseEntity<OrderPageList> listOrder(OrderResource filters, PageCommand command) {
         OrderEntity entity = new OrderEntity(
                 filters.getOrderId(),
                 filters.getCustomerId(),
                 filters.getItemName(),
                 filters.getQuantity()
         );
-        return ResponseEntity.ok().body(orderRepository.list(entity, pageable).map(this::toResource));
+
+        Page<OrderResource> page = orderRepository.list(entity, toPageRequest(command)).map(this::toResource);
+        return ResponseEntity.ok().body(new OrderPageList().content(page.getContent()).pageMetadata(toPageResource(page)));
     }
 
     @Override
@@ -83,6 +89,25 @@ public class WebOrderHandler implements OrdersApi {
                 .customerId(entity.getCustomerId())
                 .itemName(entity.getItemName())
                 .quantity(entity.getQuantity());
+    }
+
+    private <T> PageResource toPageResource(Page<T> page) {
+        return new PageResource()
+                .pageSize(page.getSize())
+                .pageNumber(page.getNumber())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages());
+    }
+
+    private PageRequest toPageRequest(PageCommand command) {
+        return Optional.ofNullable(command.getSort())
+                .map(property -> {
+                    Direction direction = Optional.ofNullable(command.getDirection())
+                            .map(Direction::fromString).orElse(Direction.ASC);
+                    return Sort.by(direction, property);
+                })
+                .map(sort -> PageRequest.of(command.getPageNumber(), command.getPageSize(), sort))
+                .orElseGet(() -> PageRequest.of(command.getPageNumber(), command.getPageSize()));
     }
 
     private OrderEntity toEntity(UpdateOrderCommand command, OrderEntity entity) {
