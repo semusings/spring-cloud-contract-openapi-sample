@@ -15,9 +15,19 @@ response:
   headers:
     Content-Type: application/json
   body:
-    content: notNull
+    pageMetadata:
+      pageNumber: 0
   matchers:
     body:
-      - path: $.pageMetadata
+      - path: $.content[0].itemName
         type: by_regex
-        value: 0
+        value: Hot Burger
+      - path: $.content[0].customerId
+        type: by_regex
+        value: "91bb1cd1-8849-41b3-8c63-dd8f9f6ee7ab"
+      - path: $.content[0].orderId
+        type: by_regex
+        value: "0a818933-087d-47f2-ad83-2f986ed087eb"
+      - path: $.content[0].quantity
+        type: by_regex
+        value: 5
