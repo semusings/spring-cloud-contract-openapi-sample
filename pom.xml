@@ -162,13 +162,4 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <profiles>
-        <profile>
-            <id>ci</id>
-        </profile>
-        <profile>
-            <id>pub-docs</id>
-        </profile>
-    </profiles>
-
 </project>
