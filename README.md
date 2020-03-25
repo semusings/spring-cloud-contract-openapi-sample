@@ -1,1 +1,1 @@
-# spring-cloud-contract-openapi-sample
+# Spring Cloud Contract OpenApi Sample
