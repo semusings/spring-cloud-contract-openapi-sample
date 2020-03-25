@@ -5,19 +5,14 @@ import io.github.bhuwanupadhyay.ordersapijava8.domain.OrderRepository;
 import io.github.bhuwanupadhyay.ordersapijava8.openapi.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static org.springframework.data.domain.PageRequest.*;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class WebOrderHandler implements OrdersApi {

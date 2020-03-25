@@ -1,6 +1,6 @@
 server:
   port: 6569
-  
+
 spring:
   application:
     name: shipments-api-java8

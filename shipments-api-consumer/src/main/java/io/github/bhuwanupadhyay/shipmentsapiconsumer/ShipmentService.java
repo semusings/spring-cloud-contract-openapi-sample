@@ -1,6 +1,5 @@
 package io.github.bhuwanupadhyay.shipmentsapiconsumer;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Value;
 

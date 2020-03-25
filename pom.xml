@@ -27,7 +27,7 @@
         <resource.delimiter>@</resource.delimiter>
         <springdoc-openapi-ui.version>1.2.33</springdoc-openapi-ui.version>
         <maven-compiler-plugin.compilerArgs>
-<!--            &#45;&#45;enable-preview-->
+            <!--            &#45;&#45;enable-preview-->
         </maven-compiler-plugin.compilerArgs>
     </properties>
 
