@@ -15,6 +15,9 @@ response:
   body:
     pageMetadata:
       pageNumber: 0
+      totalElements: 1
+      pageSize: 1
+      totalPages: 1
   matchers:
     body:
       - path: $.content[0].itemName
