@@ -14,7 +14,6 @@ public interface ShipmentService {
     }
 
     @Data
-    @AllArgsConstructor
     class OrderResource {
         private String orderId;
         private String customerId;

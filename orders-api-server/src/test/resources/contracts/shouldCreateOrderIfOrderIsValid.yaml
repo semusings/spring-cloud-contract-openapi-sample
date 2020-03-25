@@ -20,8 +20,6 @@ request:
         value: "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}"
 response:
   status: 200
-  headers:
-    Content-Type: application/json
   body:
     itemName: Pizza
     customerId: "6a2f41a3-c54c-fce8-32d2-0324e1c32e22"

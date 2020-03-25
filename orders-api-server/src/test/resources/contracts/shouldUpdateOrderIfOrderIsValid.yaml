@@ -20,8 +20,6 @@ request:
         value: "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}"
 response:
   status: 200
-  headers:
-    Content-Type: application/json
   body:
     itemName: Hot Dog
     customerId: "91bb1cd1-8849-41b3-8c63-dd8f9f6ee7ab"

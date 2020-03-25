@@ -12,8 +12,6 @@ request:
     sort: "orderId,ASC"
 response:
   status: 200
-  headers:
-    Content-Type: application/json
   body:
     pageMetadata:
       pageNumber: 0

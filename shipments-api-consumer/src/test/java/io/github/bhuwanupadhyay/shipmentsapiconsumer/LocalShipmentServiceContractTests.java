@@ -23,7 +23,7 @@ class LocalShipmentServiceContractTests {
     @Test
     void shouldSuccessfullyShipAnOrder() {
         // given:
-        String orderId = "orderId1";
+        String orderId = "0a818933-087d-47f2-ad83-2f986ed087eb";
         // when:
         boolean result = service.ship(orderId, new ShipmentAddress("Nepal"));
         // then:
