@@ -14,7 +14,7 @@
 
     <properties>
         <default.package>io.github.bhuwanupadhyay.ordersapijava8.openapi</default.package>
-        <openapi-generator-maven-plugin.version>4.2.3</openapi-generator-maven-plugin.version>
+        <openapi-generator-maven-plugin.version>5.1.0</openapi-generator-maven-plugin.version>
     </properties>
 
     <dependencies>
